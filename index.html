@@ -984,7 +984,7 @@
       <div class="payment-method">
         <div class="payment-method-label">📱 ことら送金</div>
         <div class="payment-method-value">
-          <strong>knzw126@gmail.com</strong><br><br>
+          <strong id="kotraEmail"></strong><br><br>
           メールアドレスを指定してことら送金
         </div>
         <button class="copy-btn" onclick="navigator.clipboard.writeText('knzw126@gmail.com');this.textContent='✅ コピーしました'">📋 アドレスコピー</button>
@@ -1029,4 +1029,26 @@
       <div class="objection-popup-emoji">🎁</div>
       <div class="objection-popup-title">特別コンテンツ解放</div>
       <div class="objection-popup-stock" style="color:var(--brown);opacity:0.75;">幹事に感謝を伝えよう</div>
-      <a href="https://qr.paypay.ne.jp/p2p01_fDecoxmuHN2SIJ5X" target="_blank" style="display:inline-block;margin-bottom:12px;background:#E8322A;color:white;text-decoration:none;font-family:'Zen Maru Gothic',san
+      <a href="https://qr.paypay.ne.jp/p2p01_fDecoxmuHN2SIJ5X" target="_blank" style="display:inline-block;margin-bottom:12px;background:#E8322A;color:white;text-decoration:none;font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:1rem;padding:13px 28px;border-radius:100px;min-width:180px;">タップ</a>
+    </div>
+    <button class="objection-popup-close" onclick="closeObjection()">閉じる</button>
+  </div>
+</div>
+
+<footer>
+  広研61代同期会 2026<br>
+  <span style="font-size:1.3rem">🍻</span>
+</footer>
+
+</div><!-- /wrapper -->
+
+<script>
+  // ことらメアドをJSで組み立て（Cloudflare難読化対策）
+  (function(){
+    var u='knzw126';var d='gmail.com';
+    var el=document.getElementById('kotraEmail');
+    if(el) el.textContent=u+'@'+d;
+  })();
+</script>
+</body>
+</html>
