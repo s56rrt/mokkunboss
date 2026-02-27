@@ -8,270 +8,341 @@
 <style>
   :root {
     --red: #E8322A;
-    --orange: #F4762A;
     --yellow: #F9C623;
     --cream: #FFF8EF;
     --dark: #1A1208;
     --brown: #6B3D14;
   }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
   body {
     background: var(--cream);
     font-family: 'Noto Sans JP', sans-serif;
     color: var(--dark);
-    overflow-x: hidden;
   }
+
+  /* ── BG グラデ ── */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
-    background-image:
+    background:
       radial-gradient(circle at 15% 20%, rgba(244,118,42,0.08) 0%, transparent 50%),
       radial-gradient(circle at 85% 70%, rgba(232,50,42,0.06) 0%, transparent 50%);
     pointer-events: none;
     z-index: 0;
   }
-  .wrapper { position: relative; z-index: 1; }
+
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  /* ── HERO ── */
   .hero {
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 60px 24px;
+    padding: 72px 20px 56px;
     position: relative;
+    overflow: hidden;
   }
+
   .hero::after {
     content: '🍺';
     position: absolute;
-    font-size: 140px;
+    font-size: 120px;
     opacity: 0.06;
-    bottom: -10px;
-    right: -10px;
+    bottom: -8px;
+    right: -8px;
     transform: rotate(15deg);
     pointer-events: none;
   }
+
   .badge {
     display: inline-block;
     background: var(--red);
     color: white;
     font-family: 'Zen Maru Gothic', sans-serif;
     font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 0.15em;
-    padding: 6px 20px;
+    font-size: 0.82rem;
+    letter-spacing: 0.14em;
+    padding: 5px 18px;
     border-radius: 100px;
-    margin-bottom: 28px;
+    margin-bottom: 12px;
     animation: fadeDown 0.6s ease both;
   }
+
   .hero-title {
     font-family: 'Zen Maru Gothic', sans-serif;
     font-weight: 900;
-    font-size: clamp(3rem, 10vw, 7rem);
+    font-size: clamp(2.6rem, 10vw, 7rem);
     line-height: 1;
-    color: var(--dark);
     animation: fadeDown 0.7s 0.1s ease both;
   }
+
   .hero-title span {
     color: var(--red);
     display: inline-block;
     animation: wobble 3s 1.5s ease-in-out infinite;
   }
+
   .hero-sub {
-    font-size: clamp(1rem, 3vw, 1.5rem);
+    font-size: clamp(0.95rem, 3vw, 1.4rem);
     color: var(--brown);
-    margin-top: 16px;
+    margin-top: 14px;
     font-weight: 700;
     animation: fadeDown 0.7s 0.2s ease both;
   }
+
   .divider {
-    width: 60px;
+    width: 48px;
     height: 4px;
     background: var(--yellow);
     border-radius: 2px;
-    margin: 32px auto;
+    margin: 24px auto 0;
     animation: fadeDown 0.7s 0.3s ease both;
   }
+
+  /* ── CONTENT WRAPPER ── */
+  .content {
+    width: 100%;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  /* ── INFO CARDS ── */
   .info-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 24px 80px;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 48px;
     animation: fadeUp 0.8s 0.4s ease both;
   }
+
+  @media (max-width: 480px) {
+    .info-grid { grid-template-columns: 1fr; }
+  }
+
   .card {
     background: white;
-    border-radius: 20px;
-    padding: 28px 24px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    border-radius: 16px;
+    padding: 18px 18px 20px;
+    box-shadow: 0 3px 16px rgba(0,0,0,0.07);
     border: 2px solid transparent;
-    transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
   }
+
   .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.11);
     border-color: var(--yellow);
   }
-  .card-icon { font-size: 2.4rem; margin-bottom: 12px; display: block; }
+
+  .card-icon { font-size: 1.8rem; margin-bottom: 8px; display: block; }
+
   .card-label {
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     font-weight: 700;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.18em;
     color: var(--red);
     text-transform: uppercase;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
+
   .card-value {
     font-family: 'Zen Maru Gothic', sans-serif;
     font-weight: 700;
-    font-size: 1.35rem;
+    font-size: 1.15rem;
     line-height: 1.4;
   }
-  .card-sub { font-size: 0.88rem; color: var(--brown); margin-top: 6px; opacity: 0.8; }
+
+  .card-sub {
+    font-size: 0.82rem;
+    color: var(--brown);
+    margin-top: 4px;
+    opacity: 0.8;
+  }
+
   .card-link {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    margin-top: 14px;
+    gap: 5px;
+    margin-top: 12px;
     background: var(--dark);
     color: var(--cream);
     text-decoration: none;
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     font-weight: 700;
-    padding: 8px 16px;
+    padding: 7px 14px;
     border-radius: 100px;
     transition: background 0.2s;
   }
+
   .card-link:hover { background: var(--red); }
-  .section {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 24px 80px;
-  }
+
+  /* ── MEMBERS ── */
   .section-title {
     font-family: 'Zen Maru Gothic', sans-serif;
     font-weight: 900;
-    font-size: 2rem;
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .members-grid { display: flex; flex-wrap: wrap; gap: 10px; }
-  .member-chip {
-    background: white;
-    border: 2px solid var(--yellow);
-    border-radius: 100px;
-    padding: 8px 18px;
-    font-weight: 700;
-    font-size: 0.95rem;
-    box-shadow: 2px 2px 0 var(--yellow);
-    transition: transform 0.15s, box-shadow 0.15s;
-    cursor: default;
-  }
-  .member-chip:hover { transform: translate(-2px,-2px); box-shadow: 4px 4px 0 var(--yellow); }
-  .member-chip.host {
-    background: var(--red);
-    border-color: var(--red);
-    color: white;
-    box-shadow: 2px 2px 0 var(--brown);
-  }
-  .member-chip.host:hover { box-shadow: 4px 4px 0 var(--brown); }
-  .payment-card {
-    background: var(--dark);
-    color: var(--cream);
-    border-radius: 24px;
-    padding: 36px 32px;
-    max-width: 900px;
-    margin: 0 24px 80px;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.18);
-    position: relative;
-    overflow: hidden;
-  }
-  @media (min-width: 948px) {
-    .payment-card { margin-left: auto; margin-right: auto; }
-  }
-  .payment-card::before {
-    content: '💸';
-    position: absolute;
-    font-size: 120px;
-    opacity: 0.06;
-    top: -20px;
-    right: -20px;
-    transform: rotate(-10deg);
-    pointer-events: none;
-  }
-  .payment-title {
-    font-family: 'Zen Maru Gothic', sans-serif;
-    font-weight: 900;
-    font-size: 1.8rem;
-    margin-bottom: 28px;
+    font-size: 1.6rem;
+    margin-bottom: 16px;
     display: flex;
     align-items: center;
     gap: 10px;
   }
+
+  .members-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 48px;
+  }
+
+  .member-chip {
+    background: white;
+    border: 2px solid var(--yellow);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    box-shadow: 2px 2px 0 var(--yellow);
+    transition: transform 0.15s, box-shadow 0.15s;
+    cursor: default;
+  }
+
+  .member-chip:hover { transform: translate(-2px,-2px); box-shadow: 4px 4px 0 var(--yellow); }
+
+  .member-chip.host {
+    background: rgba(232,50,42,0.07);
+    border-color: var(--yellow);
+    color: var(--dark);
+    box-shadow: 2px 2px 0 var(--yellow);
+  }
+
+  .member-chip.host:hover { box-shadow: 4px 4px 0 var(--yellow); }
+
+  /* ── PAYMENT ── */
+  .payment-card {
+    background: var(--dark);
+    color: var(--cream);
+    border-radius: 20px;
+    padding: 28px 24px;
+    margin-bottom: 64px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .payment-card::before {
+    content: '💸';
+    position: absolute;
+    font-size: 100px;
+    opacity: 0.06;
+    top: -14px;
+    right: -10px;
+    transform: rotate(-10deg);
+    pointer-events: none;
+  }
+
+  .payment-title {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 900;
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+  }
+
   .payment-amount {
     display: inline-block;
     background: var(--yellow);
     color: var(--dark);
     font-family: 'Zen Maru Gothic', sans-serif;
     font-weight: 900;
-    font-size: 2.4rem;
-    padding: 8px 24px;
-    border-radius: 12px;
-    margin-bottom: 28px;
+    font-size: 2rem;
+    padding: 6px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
   }
+
   .payment-methods {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
   }
+
+  @media (max-width: 480px) {
+    .payment-methods { grid-template-columns: 1fr; }
+  }
+
   .payment-method {
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 14px;
-    padding: 20px;
+    border-radius: 12px;
+    padding: 16px;
   }
+
   .payment-method-label {
-    font-size: 0.72rem;
-    letter-spacing: 0.15em;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
     color: var(--yellow);
     font-weight: 700;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     text-transform: uppercase;
   }
-  .payment-method-value { font-size: 0.92rem; line-height: 1.7; opacity: 0.9; }
+
+  .payment-method-value {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    opacity: 0.9;
+  }
+
   .copy-btn {
-    display: inline-block;
+    display: block;
+    width: 100%;
     margin-top: 10px;
     background: rgba(255,255,255,0.1);
     border: none;
     color: white;
-    font-size: 0.78rem;
-    padding: 5px 12px;
+    font-size: 0.76rem;
+    padding: 7px 10px;
     border-radius: 6px;
     cursor: pointer;
+    text-align: center;
     transition: background 0.2s;
     font-family: 'Noto Sans JP', sans-serif;
   }
+
   .copy-btn:hover { background: rgba(255,255,255,0.2); }
+
   .line-section {
-    margin-top: 28px;
-    padding-top: 24px;
+    margin-top: 24px;
+    padding-top: 20px;
     border-top: 1px solid rgba(255,255,255,0.12);
     text-align: center;
   }
+
   .line-note {
-    font-size: 0.92rem;
+    font-size: 0.88rem;
     opacity: 0.75;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
+
   .line-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     background: #06C755;
     color: white;
@@ -279,59 +350,246 @@
     font-family: 'Zen Maru Gothic', sans-serif;
     font-weight: 700;
     font-size: 1rem;
-    padding: 14px 32px;
+    padding: 13px 32px;
     border-radius: 100px;
     transition: opacity 0.2s, transform 0.2s;
-    box-shadow: 0 4px 16px rgba(6,199,85,0.35);
+    box-shadow: 0 4px 14px rgba(6,199,85,0.35);
+    width: 100%;
+    max-width: 280px;
   }
+
   .line-btn:hover { opacity: 0.88; transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
   footer {
     text-align: center;
-    padding: 40px 24px;
+    padding: 32px 16px;
+    font-size: 0.8rem;
+    color: var(--brown);
+    opacity: 0.6;
+  }
+
+  /* ── SORT BUTTONS ── */
+  .sort-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 14px;
+  }
+  .sort-btn {
+    background: white;
+    border: 2px solid rgba(0,0,0,0.1);
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--brown);
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .sort-btn:hover { border-color: var(--yellow); color: var(--dark); }
+  .sort-btn.active { background: var(--dark); border-color: var(--dark); color: white; }
+
+
+  /* ── MEMBER GROUPS ── */
+  .member-group { margin-bottom: 0; }
+  .member-group + .member-group { margin-top: 14px; }
+  #membersGrid { margin-bottom: 48px; }
+  #membersGrid.grouped { margin-bottom: 32px; }
+  .member-group-label {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 900;
+    font-size: 0.78rem;
+    color: var(--brown);
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .member-group-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(0,0,0,0.08);
+  }
+  .members-grid-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 48px;
+  }
+  .member-group .members-grid-chips {
+    margin-bottom: 0;
+  }
+
+
+  /* ── OBJECTION ── */
+  .objection-area {
+    display: none;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 48px;
+  }
+  .objection-area.visible { display: block; }
+  .objection-btn {
+    background: var(--red);
+    border: none;
+    border-radius: 100px;
+    padding: 10px 24px;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 900;
+    font-size: 0.88rem;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+    box-shadow: 0 3px 12px rgba(232,50,42,0.35), 3px 3px 0 rgba(139,30,20,0.4);
+  }
+  .objection-btn:hover {
+    background: #c8261e;
+    box-shadow: 0 5px 18px rgba(232,50,42,0.4), 3px 3px 0 rgba(139,30,20,0.4);
+    transform: translateY(-1px);
+  }
+  .objection-btn:active { transform: translate(2px, 2px); box-shadow: 0 1px 6px rgba(232,50,42,0.3), 1px 1px 0 rgba(139,30,20,0.4); }
+
+  /* ポップアップオーバーレイ */
+  .objection-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 998;
+    align-items: center;
+    justify-content: center;
+  }
+  .objection-overlay.show { display: flex; }
+  .objection-popup {
+    background: white;
+    border-radius: 24px;
+    padding: 32px 28px;
+    text-align: center;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.25);
+    animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
+    max-width: 300px;
+    width: 88%;
+  }
+  .objection-popup-emoji { font-size: 3rem; margin-bottom: 12px; }
+  .objection-popup-title {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 900;
+    font-size: 1.3rem;
+    color: var(--dark);
+    margin-bottom: 6px;
+  }
+  .objection-popup-stock {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--red);
+    margin-bottom: 20px;
+  }
+  .objection-popup-close {
+    background: var(--dark);
+    color: white;
+    border: none;
+    border-radius: 100px;
+    padding: 11px 32px;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.15s;
+    min-width: 120px;
+  }
+  .objection-popup-close:hover { background: var(--red); }
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.85); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  /* ── DELIBERATION SCREEN ── */
+  .deliberation-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 997;
+    align-items: center;
+    justify-content: center;
+  }
+  .deliberation-overlay.show { display: flex; }
+
+  .deliberation-box {
+    background: white;
+    border-radius: 24px;
+    padding: 36px 32px;
+    text-align: center;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+    animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
+    max-width: 280px;
+    width: 88%;
+  }
+
+  .deliberation-spinner {
+    width: 56px;
+    height: 56px;
+    border: 5px solid rgba(0,0,0,0.08);
+    border-top-color: var(--red);
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    animation: spin 0.9s linear infinite;
+  }
+
+  .deliberation-title {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 900;
+    font-size: 1.25rem;
+    color: var(--dark);
+    margin-bottom: 6px;
+  }
+
+  .deliberation-sub {
     font-size: 0.82rem;
     color: var(--brown);
     opacity: 0.6;
   }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  /* ── FLOATING DOTS ── */
   .dot {
     position: fixed;
     border-radius: 50%;
     pointer-events: none;
     z-index: 0;
-    animation: float linear infinite;
-    opacity: 0.35;
+    animation: floatUp linear infinite;
+    opacity: 0;
+    max-width: 12px;
   }
+
+  /* ── ANIMATIONS ── */
   @keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
   @keyframes wobble {
     0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(-4deg); }
-    75% { transform: rotate(4deg); }
+    25%      { transform: rotate(-4deg); }
+    75%      { transform: rotate(4deg); }
   }
-  @keyframes float {
-    0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-    10% { opacity: 0.35; }
-    90% { opacity: 0.35; }
-    100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
-  }
-  @media (max-width: 600px) {
-    .hero { min-height: auto; padding: 60px 20px 48px; }
-    .hero-sub { font-size: 1rem; }
-    .info-grid { grid-template-columns: 1fr; padding: 0 16px 60px; gap: 14px; }
-    .section { padding: 0 16px 60px; }
-    .section-title { font-size: 1.5rem; }
-    .member-chip { font-size: 0.85rem; padding: 7px 14px; }
-    .payment-card { margin: 0 16px 60px; padding: 28px 20px; border-radius: 20px; }
-    .payment-title { font-size: 1.4rem; }
-    .payment-amount { font-size: 1.8rem; padding: 6px 18px; }
-    .payment-methods { grid-template-columns: 1fr; }
-    .line-btn { width: 100%; justify-content: center; padding: 14px 20px; }
-    .copy-btn { width: 100%; padding: 8px 12px; text-align: center; margin-top: 12px; }
+  @keyframes floatUp {
+    0%   { transform: translateY(105vh) rotate(0deg);   opacity: 0; }
+    8%   { opacity: 0.3; }
+    92%  { opacity: 0.3; }
+    100% { transform: translateY(-8vh)  rotate(540deg); opacity: 0; }
   }
 </style>
 </head>
@@ -340,99 +598,305 @@
 
 <script>
   const colors = ['#E8322A','#F4762A','#F9C623','#6B3D14'];
-  for (let i = 0; i < 18; i++) {
+  for (let i = 0; i < 14; i++) {
     const d = document.createElement('div');
     d.className = 'dot';
-    const s = 4 + Math.random() * 8;
-    d.style.cssText = 'left:' + (Math.random()*100) + '%;background:' + colors[Math.floor(Math.random()*4)] + ';width:' + s + 'px;height:' + s + 'px;animation-duration:' + (6+Math.random()*10) + 's;animation-delay:-' + (Math.random()*15) + 's;';
+    const s = 4 + Math.random() * 7;
+    // left を 5〜90% に収めて横はみ出しを防ぐ
+    const left = 5 + Math.random() * 85;
+    d.style.cssText =
+      'left:' + left + '%;' +
+      'background:' + colors[i % 4] + ';' +
+      'width:' + s + 'px;' +
+      'height:' + s + 'px;' +
+      'animation-duration:' + (7 + Math.random() * 9) + 's;' +
+      'animation-delay:-' + (Math.random() * 14) + 's;';
     document.body.appendChild(d);
   }
 </script>
 
+<!-- HERO -->
 <section class="hero">
-  <span class="badge">👋 お待ちかね！</span>
+  <span class="badge">👋 ばちこり！</span>
   <h1 class="hero-title">広研<span>同期会</span></h1>
-  <p class="hero-sub">2026年3月7日（土）19:00〜</p>
   <div class="divider"></div>
 </section>
 
-<div class="info-grid">
-  <div class="card">
-    <span class="card-icon">📅</span>
-    <div class="card-label">Date &amp; Time</div>
-    <div class="card-value">3月7日（土）<br>19:00〜</div>
-    <div class="card-sub">3時間飲み放題コース 🎉</div>
-  </div>
-  <div class="card">
-    <span class="card-icon">🏮</span>
-    <div class="card-label">Venue</div>
-    <div class="card-value">やじろべえ EAST</div>
-    <div class="card-sub">渋谷区桜丘 ／ 喫煙可 🚬</div>
-    <a class="card-link" href="https://maps.app.goo.gl/fJbbPdajcxWwqxnZA" target="_blank">📍 地図を開く</a>
-  </div>
-</div>
+<div class="content">
 
-<div class="section">
-  <h2 class="section-title">🙌 参加メンバー <span style="font-size:1rem;font-weight:400;color:var(--brown)">(15名)</span></h2>
-  <div class="members-grid">
-    <div class="member-chip">あゆと</div>
-    <div class="member-chip">いちた</div>
-    <div class="member-chip">おおすぎ</div>
-    <div class="member-chip">おおくま</div>
-    <div class="member-chip host">かなざわ 👑</div>
-    <div class="member-chip">きこ</div>
-    <div class="member-chip">くによし</div>
-    <div class="member-chip">けいた</div>
-    <div class="member-chip">こはる</div>
-    <div class="member-chip">たかや</div>
-    <div class="member-chip">たつた</div>
-    <div class="member-chip">みお</div>
-    <div class="member-chip">めぐみ</div>
-    <div class="member-chip">もっくん</div>
-    <div class="member-chip">ゆりな</div>
-  </div>
-</div>
-
-<div class="payment-card">
-  <h2 class="payment-title">💰 事前振込のお願い</h2>
-  <div class="payment-amount">¥6,600</div>
-
-  <div class="payment-methods">
-    <div class="payment-method">
-      <div class="payment-method-label">🏦 銀行振込</div>
-      <div class="payment-method-value">
-        SBI新生銀行<br>
-        さくら支店（300）<br>
-        <strong>5701856</strong><br>
-        カナザワユウキ
-      </div>
-      <button class="copy-btn" onclick="navigator.clipboard.writeText('5701856');this.textContent='✅ コピーしました'">📋 口座番号コピー</button>
+  <!-- INFO CARDS -->
+  <div class="info-grid">
+    <div class="card">
+      <span class="card-icon">📅</span>
+      <div class="card-label">Date &amp; Time</div>
+      <div class="card-value">3月7日（土）<br>19:00〜</div>
+      <div class="card-sub">3時間飲み放題コース 🎉</div>
     </div>
-
-    <div class="payment-method">
-      <div class="payment-method-label">📱 ことら送金</div>
-      <div class="payment-method-value">
-        <strong>knzw126@gmail.com</strong><br><br>
-        メールアドレスを指定してことら送金
-      </div>
-      <button class="copy-btn" onclick="navigator.clipboard.writeText('knzw126@gmail.com');this.textContent='✅ コピーしました'">📋 アドレスコピー</button>
+    <div class="card">
+      <span class="card-icon">🏮</span>
+      <div class="card-label">Venue</div>
+      <div class="card-value">やじろべえ EAST</div>
+      <div class="card-sub">渋谷区桜丘 ／ 喫煙可 🚬</div>
+      <a class="card-link" href="https://maps.app.goo.gl/fJbbPdajcxWwqxnZA" target="_blank">📍 地図を開く</a>
     </div>
   </div>
 
-  <div class="line-section">
-    <p class="line-note">振込完了したらLINEで報告してね！</p>
-    <a class="line-btn" href="https://line.me/ti/p/LNv9vvYMoK" target="_blank">
-      <svg width="22" height="22" viewBox="0 0 48 48" fill="white"><path d="M24 4C12.95 4 4 11.82 4 21.4c0 5.94 3.7 11.17 9.33 14.44-.41 1.53-1.48 5.54-1.7 6.41-.27 1.07.39 1.06 1.04.61.52-.36 6.92-4.7 9.7-6.6.84.12 1.7.18 2.63.18 11.05 0 20-7.82 20-17.44C44 11.82 35.05 4 24 4z"/></svg>
-      LINEで報告する
-    </a>
+  <!-- MEMBERS -->
+  <h2 class="section-title">🙌 参加メンバー <span style="font-size:0.9rem;font-weight:400;color:var(--brown)">(15名)</span></h2>
+
+  <div class="sort-bar">
+    <button class="sort-btn active" onclick="sortMembers('default', this)">50音順</button>
+    <button class="sort-btn" onclick="sortMembers('rarity', this)">⭐ レア度</button>
+    <button class="sort-btn" onclick="sortMembers('ikemen', this)">😎 イケメン度</button>
+    <button class="sort-btn" onclick="sortMembers('drink', this)">🍺 飲める度</button>
+    <button class="sort-btn" onclick="sortMembers('like', this)">💖 好き/嫌い</button>
   </div>
-</div>
+
+  <div id="membersGrid"></div>
+  <div class="objection-area" id="objectionArea">
+    <button class="objection-btn" onclick="objection()" id="objectionBtn">🙋 異議申し立て</button>
+  </div>
+
+  <script>
+    const members = [
+      { name: 'あゆと', host: false, rarity: 2, ikemen: 3, drink: 4, like: '好き' },
+      { name: 'いちた', host: false, rarity: 5, ikemen: 2, drink: 5, like: '好き' },
+      { name: 'おおすぎ', host: false, rarity: 5, ikemen: 3, drink: 3, like: '好き' },
+      { name: 'おおくま', host: false, rarity: 4, ikemen: 1, drink: 2, like: 'やや嫌い' },
+      { name: 'かなざわ', host: true, rarity: 1, ikemen: 2, drink: 1, like: '-' },
+      { name: 'きこ', host: false, rarity: 3, ikemen: null, drink: 3, like: '好き' },
+      { name: 'くによし', host: false, rarity: 3, ikemen: null, drink: 4, like: '好き' },
+      { name: 'けいた', host: false, rarity: 1, ikemen: 2, drink: 5, like: '普通' },
+      { name: 'こはる', host: false, rarity: 3, ikemen: null, drink: 3, like: '好き' },
+      { name: 'たかや', host: false, rarity: 1, ikemen: 2, drink: 4, like: '普通' },
+      { name: 'たつた', host: false, rarity: 3, ikemen: null, drink: 3, like: '好き' },
+      { name: 'みお', host: false, rarity: 2, ikemen: 1, drink: 5, like: 'やや嫌い' },
+      { name: 'めぐみ', host: false, rarity: 2, ikemen: 2, drink: 5, like: '普通' },
+      { name: 'もっくん', host: false, rarity: 4, ikemen: 1, drink: 4, like: '嫌い' },
+      { name: 'ゆりな', host: false, rarity: 3, ikemen: null, drink: 2, like: '好き' },
+    ];
+
+    const defaultOrder = members.map(m => m.name);
+
+    const likeOrder = { '好き': 0, '普通': 1, 'やや嫌い': 2, '嫌い': 3, '-': 4 };
+    const likeLabel = { '好き': '💖 好き', '普通': '🤔 普通', 'やや嫌い': '😑 やや嫌い', '嫌い': '💀 嫌い', '-': '-' };
+
+    function stars(n) {
+      if (n === null) return '−';
+      return '★' + n;
+    }
+
+    function renderGroup(label, members) {
+      if (!members.length) return '';
+      const chips = members.map(m =>
+        `<div class="member-chip${m.host ? ' host' : ''}">${m.name}</div>`
+      ).join('');
+      return `<div class="member-group">
+        <div class="member-group-label">${label}</div>
+        <div class="members-grid-chips">${chips}</div>
+      </div>`;
+    }
+
+    function renderMembers(sorted, key) {
+      const grid = document.getElementById('membersGrid');
+      grid.classList.toggle('grouped', key !== 'default');
+
+      if (key === 'default') {
+        grid.innerHTML = `<div class="members-grid-chips">${sorted.map(m =>
+          `<div class="member-chip${m.host ? ' host' : ''}">${m.name}</div>`
+        ).join('')}</div>`;
+
+      } else if (key === 'ikemen') {
+        const withData = sorted.filter(m => m.ikemen !== null);
+        const noData   = sorted.filter(m => m.ikemen === null);
+        const groups = {};
+        withData.forEach(m => {
+          if (!groups[m.ikemen]) groups[m.ikemen] = [];
+          groups[m.ikemen].push(m);
+        });
+        const scores = Object.keys(groups).map(Number).sort((a,b) => b - a);
+        let html = scores.map(s => renderGroup(stars(s), groups[s])).join('');
+        if (noData.length) html += renderGroup('💣 🏚️ 🍙 🤲', noData);
+        grid.innerHTML = html;
+
+      } else if (key === 'like') {
+        const order = ['好き', '普通', 'やや嫌い', '嫌い'];
+        const labels = { '好き': '💖 好き', '普通': '🤔 普通', 'やや嫌い': '😑 やや嫌い', '嫌い': '💀 嫌い', '-': 'その他' };
+        grid.innerHTML = order.map(l => {
+          const group = sorted.filter(m => m.like === l);
+          return renderGroup(labels[l], group);
+        }).join('');
+
+      } else {
+        const field = key === 'rarity' ? 'rarity' : 'drink';
+        const groups = {};
+        sorted.forEach(m => {
+          if (!groups[m[field]]) groups[m[field]] = [];
+          groups[m[field]].push(m);
+        });
+        const scores = Object.keys(groups).map(Number).sort((a,b) => b - a);
+        grid.innerHTML = scores.map(s => renderGroup(stars(s), groups[s])).join('');
+      }
+    }
+
+    function sortMembers(key, btn) {
+      document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      let sorted = [...members];
+      if (key === 'default') {
+        sorted.sort((a, b) => defaultOrder.indexOf(a.name) - defaultOrder.indexOf(b.name));
+      } else if (key === 'rarity') {
+        sorted.sort((a, b) => b.rarity - a.rarity);
+      } else if (key === 'ikemen') {
+        sorted.sort((a, b) => (b.ikemen ?? -1) - (a.ikemen ?? -1));
+      } else if (key === 'drink') {
+        sorted.sort((a, b) => b.drink - a.drink);
+      } else if (key === 'like') {
+        sorted.sort((a, b) => likeOrder[a.like] - likeOrder[b.like]);
+      }
+      renderMembers(sorted, key);
+      document.getElementById('objectionArea').classList.toggle('visible', key !== 'default');
+    }
+
+    // 初期描画（50音順）
+    renderMembers(members, 'default');
+
+    // ── OBJECTION ──
+    let objectionCount = 0;
+
+    function objection() {
+      objectionCount++;
+      const rOverlay = document.getElementById('objectionOverlay');
+      document.getElementById('objectionStock').textContent = 'ストック ' + objectionCount + '杯';
+
+      // 審議時間：1杯目2秒、2杯目1秒、3杯目以降は即
+      const delay = objectionCount === 1 ? 2000
+                  : objectionCount === 2 ? 1000
+                  : 0;
+
+      const taunts = [
+        'また来たの…😮‍💨', '懲りないね…', 'まだやるの？',
+        'しつこいよ笑', 'あきらめなよ', 'え、まだ？',
+        '無駄だよそれ', '学習しないね', 'そろそろ気づいて',
+        '何回目だっけ', '粘り強いのは認める', '時間の無駄だよ？',
+        'そのエネルギー他に使って', '審議する気も起きない'
+      ];
+      const unluckyPeople = ['おおくま', 'みお', 'もっくん'];
+
+      if (objectionCount === 9) {
+        const victim = unluckyPeople[Math.floor(Math.random() * unluckyPeople.length)];
+        document.getElementById('objectionNormal').style.display = 'block';
+        document.getElementById('objectionSpecialContent').style.display = 'none';
+        document.getElementById('objectionEmoji').textContent = '🎉';
+        document.getElementById('objectionTitle').textContent = '成功';
+        document.getElementById('objectionTaunt').textContent = 'おめでとう！';
+        document.getElementById('objectionTaunt').style.display = 'block';
+        document.getElementById('objectionStock').textContent = 'すべてのストックは ' + victim + ' に移行したよ';
+        rOverlay.classList.add('show');
+      } else if (objectionCount >= 10) {
+        document.getElementById('objectionNormal').style.display = 'none';
+        document.getElementById('objectionSpecialContent').style.display = 'block';
+        rOverlay.classList.add('show');
+      } else if (delay === 0) {
+        const taunt = taunts[Math.floor(Math.random() * taunts.length)];
+        document.getElementById('objectionTaunt').textContent = taunt;
+        document.getElementById('objectionTaunt').style.display = 'block';
+        document.getElementById('objectionNormal').style.display = 'block';
+        document.getElementById('objectionSpecialContent').style.display = 'none';
+        document.getElementById('objectionEmoji').textContent = '😤';
+        document.getElementById('objectionTitle').textContent = '失敗';
+        rOverlay.classList.add('show');
+      } else {
+        document.getElementById('objectionNormal').style.display = 'block';
+        document.getElementById('objectionSpecialContent').style.display = 'none';
+        document.getElementById('objectionEmoji').textContent = '😤';
+        document.getElementById('objectionTitle').textContent = '失敗';
+        document.getElementById('objectionTaunt').style.display = 'none';
+        const dOverlay = document.getElementById('deliberationOverlay');
+        dOverlay.classList.add('show');
+        setTimeout(() => {
+          dOverlay.classList.remove('show');
+          document.getElementById('objectionTaunt').style.display = 'none';
+          rOverlay.classList.add('show');
+        }, delay);
+      }
+    }
+
+    function closeObjection() {
+      document.getElementById('objectionOverlay').classList.remove('show');
+    }
+  </script>
+
+  <!-- PAYMENT -->
+  <div class="payment-card">
+    <h2 class="payment-title">💰 事前振込のお願い</h2>
+    <div class="payment-amount">¥6,600</div>
+
+    <div class="payment-methods">
+      <div class="payment-method">
+        <div class="payment-method-label">🏦 銀行振込</div>
+        <div class="payment-method-value">
+          SBI新生銀行<br>
+          さくら支店（300）<br>
+          <strong>5701856</strong><br>
+          カナザワユウキ
+        </div>
+        <button class="copy-btn" onclick="navigator.clipboard.writeText('5701856');this.textContent='✅ コピーしました'">📋 口座番号コピー</button>
+      </div>
+
+      <div class="payment-method">
+        <div class="payment-method-label">📱 ことら送金</div>
+        <div class="payment-method-value">
+          <strong>knzw126@gmail.com</strong><br><br>
+          メールアドレスを指定してことら送金
+        </div>
+        <button class="copy-btn" onclick="navigator.clipboard.writeText('knzw126@gmail.com');this.textContent='✅ コピーしました'">📋 アドレスコピー</button>
+      </div>
+    </div>
+
+    <div class="line-section">
+      <p class="line-note">振込完了したらLINEで報告してね！</p>
+      <a class="line-btn" href="https://line.me/ti/p/LNv9vvYMoK" target="_blank">
+        <svg width="20" height="20" viewBox="0 0 48 48" fill="white"><path d="M24 4C12.95 4 4 11.82 4 21.4c0 5.94 3.7 11.17 9.33 14.44-.41 1.53-1.48 5.54-1.7 6.41-.27 1.07.39 1.06 1.04.61.52-.36 6.92-4.7 9.7-6.6.84.12 1.7.18 2.63.18 11.05 0 20-7.82 20-17.44C44 11.82 35.05 4 24 4z"/></svg>
+        LINEで報告する
+      </a>
+    </div>
+  </div>
+
+</div><!-- /content -->
+
 
 <footer>
   広研61代同期会 2026<br>
-  <span style="font-size:1.4rem">🍻</span>
+  <span style="font-size:1.3rem">🍻</span>
 </footer>
 
+</div><!-- /wrapper -->
+
+<div class="deliberation-overlay" id="deliberationOverlay">
+  <div class="deliberation-box">
+    <div class="deliberation-spinner"></div>
+    <div class="deliberation-title">審議中</div>
+    <div class="deliberation-sub">しばらくお待ちください…</div>
+  </div>
 </div>
+<div class="objection-overlay" id="objectionOverlay" onclick="closeObjection()">
+  <div class="objection-popup" onclick="event.stopPropagation()">
+    <div id="objectionNormal">
+      <div class="objection-popup-emoji" id="objectionEmoji">😤</div>
+      <div class="objection-popup-title" id="objectionTitle">失敗</div>
+      <div id="objectionTaunt" style="display:none;font-size:0.85rem;color:var(--brown);opacity:0.7;margin-bottom:6px;font-weight:700;"></div>
+      <div class="objection-popup-stock" id="objectionStock">ストック 1杯</div>
+    </div>
+    <div id="objectionSpecialContent" style="display:none;">
+      <div class="objection-popup-emoji">🎁</div>
+      <div class="objection-popup-title">特別コンテンツが解放されました</div>
+      <a href="https://qr.paypay.ne.jp/p2p01_fDecoxmuHN2SIJ5X" target="_blank" style="display:inline-block;margin-bottom:12px;background:#E8322A;color:white;text-decoration:none;font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:1rem;padding:13px 28px;border-radius:100px;min-width:180px;">こちらをタップ</a>
+    </div>
+    <button class="objection-popup-close" onclick="closeObjection()">閉じる</button>
+  </div>
+</div>
+
 </body>
 </html>
