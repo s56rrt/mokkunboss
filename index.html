@@ -567,16 +567,22 @@
 
   .admin-summary-card {
     background: white;
-    padding: 14px 10px;
+    padding: 0;
     text-align: center;
+    display: flex;
+    flex-direction: column;
   }
 
   .admin-summary-num {
     font-family: 'Zen Maru Gothic', sans-serif;
     font-weight: 900;
-    font-size: 1.6rem;
+    font-size: clamp(1rem, 4vw, 1.6rem);
     line-height: 1;
-    margin-bottom: 3px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 6px 4px;
   }
 
   .admin-summary-label {
@@ -585,11 +591,16 @@
     color: var(--brown);
     opacity: 0.55;
     letter-spacing: 0.08em;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 6px;
   }
 
   .admin-summary-card.s-paid .admin-summary-num { color: #34A853; }
   .admin-summary-card.s-unpaid .admin-summary-num { color: var(--red); }
-  .admin-summary-card.s-amount .admin-summary-num { font-size: 1.1rem; color: var(--dark); }
+  .admin-summary-card.s-amount .admin-summary-num { color: var(--dark); }
 
   .admin-filter {
     display: flex;
@@ -878,6 +889,49 @@
     color: var(--red);
     min-height: 1.5em;
   }
+
+  @keyframes objectionWiggle {
+    0%   { transform: translate(0,0) rotate(0deg); }
+    15%  { transform: translate(-3px,-2px) rotate(-4deg); }
+    30%  { transform: translate(3px,-1px) rotate(4deg); }
+    45%  { transform: translate(-2px,1px) rotate(-2deg); }
+    60%  { transform: translate(2px,1px) rotate(2deg); }
+    75%  { transform: translate(-1px,0px) rotate(-1deg); }
+    100% { transform: translate(0,0) rotate(0deg); }
+  }
+  .objection-btn.wiggle {
+    animation: objectionWiggle 0.5s ease both;
+  }
+
+  /* ヒントバブル */
+  .objection-hint {
+    display: none;
+    position: absolute;
+    top: -38px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--dark);
+    color: white;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 700;
+    font-size: 0.7rem;
+    padding: 5px 12px;
+    border-radius: 100px;
+    white-space: nowrap;
+    pointer-events: none;
+    animation: fadeUp 0.4s ease both;
+  }
+  .objection-hint::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--dark);
+    border-bottom: none;
+  }
+  .objection-hint.show { display: block; }
   /* ── SORT BUTTONS ── */
   .sort-bar {
     display: flex;
@@ -1279,7 +1333,10 @@
 
   <div id="membersGrid"></div>
   <div class="objection-area" id="objectionArea">
-    <button class="objection-btn" onclick="objection()" id="objectionBtn">🙋 異議申し立て</button>
+    <div style="position:relative;display:inline-block;">
+      <div class="objection-hint" id="objectionHint"></div>
+      <button class="objection-btn" onclick="objection()" id="objectionBtn">🙋 異議申し立て</button>
+    </div>
   </div>
 
   <script>
@@ -2012,6 +2069,49 @@
       const canvas = document.getElementById('rouletteCanvas');
       if (canvas) { ctx = setupCanvas(canvas); drawWheel(0); }
     }, 200);
+  })();
+</script>
+
+
+<script>
+  // ── OBJECTION ATTENTION ──
+  (function() {
+    const hints = [
+      '何回でも押せるよ👀',
+      '諦めないで…？',
+      'もしかして…気づいた？',
+      '押し続けると何かが…',
+    ];
+
+    // ① 20秒おきにwiggle
+    function scheduleWiggle() {
+      const delay = 18000 + Math.random() * 10000;
+      setTimeout(() => {
+        const btn = document.getElementById('objectionBtn');
+        if (btn) {
+          btn.classList.remove('wiggle');
+          void btn.offsetWidth; // reflow
+          btn.classList.add('wiggle');
+          btn.addEventListener('animationend', () => btn.classList.remove('wiggle'), { once: true });
+        }
+        scheduleWiggle();
+      }, delay);
+    }
+    scheduleWiggle();
+
+    // ③ 押すたびにヒントバブルを表示（3〜5回目）
+    const origObjection = window.objection;
+    let pressCount = 0;
+    window.objection = function() {
+      pressCount++;
+      const hint = document.getElementById('objectionHint');
+      if (pressCount >= 2 && pressCount <= 4) {
+        hint.textContent = hints[pressCount - 2] || hints[hints.length - 1];
+        hint.classList.add('show');
+        setTimeout(() => hint.classList.remove('show'), 2500);
+      }
+      if (origObjection) origObjection();
+    };
   })();
 </script>
 
