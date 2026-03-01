@@ -742,6 +742,142 @@
     font-size: 0.85rem;
     cursor: pointer;
   }
+
+  /* ── ROULETTE ── */
+  .roulette-fab {
+    position: fixed;
+    bottom: 24px;
+    right: 20px;
+    z-index: 995;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--yellow);
+    border: none;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .roulette-fab:active { transform: scale(0.92); }
+
+  .roulette-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 996;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+  .roulette-overlay.show { display: flex; }
+
+  .roulette-modal {
+    background: white;
+    border-radius: 24px;
+    width: 100%;
+    max-width: 340px;
+    overflow: hidden;
+    animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+
+  .roulette-header {
+    background: var(--dark);
+    color: white;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .roulette-header-title {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 900;
+    font-size: 1rem;
+  }
+
+  .roulette-mode-btns {
+    display: flex;
+    gap: 5px;
+  }
+
+  .roulette-mode-btn {
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: white;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 700;
+    font-size: 0.68rem;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .roulette-mode-btn.active { background: var(--yellow); color: var(--dark); }
+
+  .roulette-close-btn {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    margin-left: 6px;
+  }
+
+  .roulette-body { padding: 20px; }
+
+  .roulette-canvas-wrap {
+    position: relative;
+    width: 260px;
+    height: 260px;
+    margin: 0 auto 16px;
+  }
+
+  #rouletteCanvas { display: block; border-radius: 50%; }
+
+  .roulette-needle {
+    position: absolute;
+    top: 50%;
+    right: -10px;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+    z-index: 2;
+  }
+
+  .roulette-spin-btn {
+    display: block;
+    width: 100%;
+    background: var(--red);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 13px;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 900;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .roulette-spin-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .roulette-result {
+    text-align: center;
+    margin-top: 12px;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: var(--red);
+    min-height: 1.5em;
+  }
   /* ── SORT BUTTONS ── */
   .sort-bar {
     display: flex;
@@ -935,6 +1071,9 @@
     opacity: 0.6;
   }
 
+  @keyframes spinSlow {
+    to { transform: rotate(360deg); }
+  }
   @keyframes spin {
     to { transform: rotate(360deg); }
   }
@@ -1477,6 +1616,62 @@
     </div>
   </div>
 </div>
+<!-- ROULETTE FAB -->
+<button class="roulette-fab" onclick="openRoulette()" title="ルーレット">
+  <svg width="56" height="56" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+    <!-- 円弧テキスト（回転しない） -->
+    <defs>
+      <path id="arcText" d="M 28,28 m -20,0 a 20,20 0 1,1 40,0"/>
+    </defs>
+    <text font-family="'Zen Maru Gothic',sans-serif" font-weight="900" font-size="6.5" fill="#1a1a1a" letter-spacing="2">
+      <textPath href="#arcText" startOffset="8%">ROULETTE</textPath>
+    </text>
+    <!-- ルーレット盤（回転） -->
+    <g style="animation:spinSlow 4s linear infinite;transform-origin:28px 28px;">
+      <circle cx="28" cy="28" r="16" fill="#1a6b3a"/>
+      <path d="M28 12 A16 16 0 0 1 44 28 L28 28 Z" fill="#27ae60"/>
+      <path d="M44 28 A16 16 0 0 1 28 44 L28 28 Z" fill="#1a6b3a"/>
+      <path d="M28 44 A16 16 0 0 1 12 28 L28 28 Z" fill="#27ae60"/>
+      <path d="M12 28 A16 16 0 0 1 28 12 L28 28 Z" fill="#1a6b3a"/>
+      <path d="M28 12 L28 28 L37.3 14.5 Z" fill="#2ecc71"/>
+      <path d="M44 28 L28 28 L41.5 18.7 Z" fill="#145a32"/>
+      <path d="M44 28 L28 28 L41.5 37.3 Z" fill="#2ecc71"/>
+      <path d="M28 44 L28 28 L37.3 41.5 Z" fill="#145a32"/>
+      <path d="M28 44 L28 28 L18.7 41.5 Z" fill="#2ecc71"/>
+      <path d="M12 28 L28 28 L14.5 37.3 Z" fill="#145a32"/>
+      <path d="M12 28 L28 28 L14.5 18.7 Z" fill="#2ecc71"/>
+      <path d="M28 12 L28 28 L18.7 14.5 Z" fill="#145a32"/>
+      <circle cx="28" cy="28" r="4.5" fill="#F9C623"/>
+      <circle cx="28" cy="28" r="2" fill="#1a1a1a"/>
+    </g>
+  </svg>
+</button>
+
+<!-- ROULETTE MODAL -->
+<div class="roulette-overlay" id="rouletteOverlay" onclick="closeRoulette()">
+  <div class="roulette-modal" onclick="event.stopPropagation()">
+    <div class="roulette-header">
+      <span class="roulette-header-title">🎡 ルーレット</span>
+      <div style="display:flex;align-items:center;gap:4px;">
+        <div class="roulette-mode-btns">
+          <button class="roulette-mode-btn active" id="modeAll" onclick="setRouletteMode('all')">全員</button>
+          <button class="roulette-mode-btn" id="modeMale" onclick="setRouletteMode('male')">男</button>
+          <button class="roulette-mode-btn" id="modeFemale" onclick="setRouletteMode('female')">女</button>
+        </div>
+        <button class="roulette-close-btn" onclick="closeRoulette()">✕</button>
+      </div>
+    </div>
+    <div class="roulette-body">
+      <div class="roulette-canvas-wrap">
+        <canvas id="rouletteCanvas" width="260" height="260"></canvas>
+        <div class="roulette-needle">◀</div>
+      </div>
+      <button class="roulette-spin-btn" id="rouletteSpinBtn" onclick="spinRoulette()">まわす！</button>
+      <div class="roulette-result" id="rouletteResult"></div>
+    </div>
+  </div>
+</div>
+
 <div class="deliberation-overlay" id="deliberationOverlay">
   <div class="deliberation-box">
     <div class="deliberation-spinner"></div>
@@ -1511,5 +1706,314 @@
     if(el) el.textContent=u+'@'+d;
   })();
 </script>
+
+<script>
+  // ── ADMIN ──
+  const ADMIN_PW = '1126';
+  const ADMIN_AMOUNT = 6600;
+  const ADMIN_MEMBERS = [
+    { name: 'あゆと', host: false },
+    { name: 'いちた', host: false },
+    { name: 'おおすぎ', host: false },
+    { name: 'おおくま', host: false },
+    { name: 'かなざわ', host: true },
+    { name: 'きこ', host: false },
+    { name: 'くによし', host: false },
+    { name: 'けいた', host: false },
+    { name: 'こはる', host: false },
+    { name: 'たかや', host: false },
+    { name: 'たつた', host: false },
+    { name: 'みお', host: false },
+    { name: 'めぐみ', host: false },
+    { name: 'もっくん', host: false },
+    { name: 'ゆりな', host: false },
+  ];
+
+  let aData = {};
+  let aFilter = 'all';
+  let aMemoTarget = null;
+
+  try { aData = JSON.parse(localStorage.getItem('koken_admin') || '{}'); } catch {}
+  function aSave() { localStorage.setItem('koken_admin', JSON.stringify(aData)); }
+
+  function adminLogin() {
+    if (document.getElementById('adminPwInput').value === ADMIN_PW) {
+      document.getElementById('adminLock').style.display = 'none';
+      document.getElementById('adminPanel').classList.add('show');
+      aRender();
+    } else {
+      document.getElementById('adminPwError').classList.add('show');
+      document.getElementById('adminPwInput').value = '';
+    }
+  }
+
+  function adminLogout() {
+    document.getElementById('adminLock').style.display = 'flex';
+    document.getElementById('adminPanel').classList.remove('show');
+    document.getElementById('adminPwInput').value = '';
+    document.getElementById('adminPwError').classList.remove('show');
+  }
+
+  function aSetFilter(f, btn) {
+    aFilter = f;
+    document.querySelectorAll('.admin-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    aRender();
+  }
+
+  function aToggle(name) {
+    if (!aData[name]) aData[name] = {};
+    aData[name].paid = !aData[name].paid;
+    aSave();
+    aRender();
+  }
+
+  function aOpenMemo(name) {
+    aMemoTarget = name;
+    document.getElementById('adminMemoTitle').textContent = name + ' のメモ';
+    document.getElementById('adminMemoText').value = aData[name]?.memo || '';
+    document.getElementById('adminMemoOverlay').classList.add('show');
+    setTimeout(() => document.getElementById('adminMemoText').focus(), 100);
+  }
+
+  function aSaveMemo() {
+    if (!aData[aMemoTarget]) aData[aMemoTarget] = {};
+    aData[aMemoTarget].memo = document.getElementById('adminMemoText').value;
+    aSave();
+    aCloseMemo();
+    aRender();
+  }
+
+  function aCloseMemo() {
+    document.getElementById('adminMemoOverlay').classList.remove('show');
+    aMemoTarget = null;
+  }
+
+  function aRender() {
+    let paid = 0;
+    ADMIN_MEMBERS.forEach(m => { if (aData[m.name]?.paid) paid++; });
+    document.getElementById('aSummaryPaid').textContent = paid;
+    document.getElementById('aSummaryUnpaid').textContent = ADMIN_MEMBERS.length - paid;
+    document.getElementById('aSummaryAmount').textContent = '¥' + (paid * ADMIN_AMOUNT).toLocaleString();
+
+    const filtered = ADMIN_MEMBERS.filter(m => {
+      if (aFilter === 'paid') return aData[m.name]?.paid;
+      if (aFilter === 'unpaid') return !aData[m.name]?.paid;
+      return true;
+    });
+
+    document.getElementById('adminMemberList').innerHTML = filtered.map(m => {
+      const isPaid = aData[m.name]?.paid || false;
+      const memo = aData[m.name]?.memo || '';
+      return `<div class="admin-member-row ${isPaid ? 'paid' : 'unpaid'}">
+        <div class="admin-check" onclick="aToggle('${m.name}')">${isPaid ? '✓' : ''}</div>
+        <div class="admin-member-name">${m.name}${m.host ? ' <span style="font-size:0.6rem;background:var(--yellow);color:var(--brown);padding:2px 6px;border-radius:100px;font-weight:700;">幹事</span>' : ''}</div>
+        ${!isPaid ? '<span class="admin-unpaid-badge">未振込</span>' : ''}
+        <div class="admin-memo-btn ${memo ? 'has-memo' : ''}" onclick="aOpenMemo('${m.name}')">${memo || '📝'}</div>
+      </div>`;
+    }).join('');
+  }
+</script>
+
+
+<script>
+  // ── ROULETTE ──
+  (function() {
+    const ALL_MEMBERS = [
+      { name: 'あゆと',   sex: 'male' },
+      { name: 'いちた',   sex: 'male' },
+      { name: 'おおすぎ', sex: 'male' },
+      { name: 'おおくま', sex: 'male' },
+      { name: 'かなざわ', sex: 'male' },
+      { name: 'きこ',     sex: 'female' },
+      { name: 'くによし', sex: 'female' },
+      { name: 'けいた',   sex: 'male' },
+      { name: 'こはる',   sex: 'female' },
+      { name: 'たかや',   sex: 'male' },
+      { name: 'たつた',   sex: 'female' },
+      { name: 'みお',     sex: 'male' },
+      { name: 'めぐみ',   sex: 'female' },
+      { name: 'もっくん', sex: 'male' },
+      { name: 'ゆりな',   sex: 'female' },
+    ];
+
+    // 交互に明暗で視認性UP
+    const PALETTE_ALL = [
+      '#27ae60','#1a6b3a','#2ecc71','#145a32',
+      '#27ae60','#1a6b3a','#2ecc71','#145a32',
+      '#27ae60','#1a6b3a','#2ecc71','#145a32',
+      '#27ae60','#1a6b3a','#2ecc71',
+    ];
+    const PALETTE_MALE = ['#1a73e8','#1557b0','#2980b9','#1a5276','#1a73e8','#1557b0','#2980b9','#1a5276','#1a73e8'];
+    const PALETTE_FEMALE = ['#E8322A','#c0392b','#F4762A','#d35400','#E8322A','#c0392b'];
+
+    let mode = 'all';
+    let spinning = false;
+    let currentAngle = 0;
+
+    function getItems() {
+      if (mode === 'male') return ALL_MEMBERS.filter(m => m.sex === 'male').map(m => m.name);
+      if (mode === 'female') return ALL_MEMBERS.filter(m => m.sex === 'female').map(m => m.name);
+      return ALL_MEMBERS.map(m => m.name);
+    }
+
+    function getPalette() {
+      if (mode === 'male') return PALETTE_MALE;
+      if (mode === 'female') return PALETTE_FEMALE;
+      return PALETTE_ALL;
+    }
+
+    // Retina対応 高解像度canvas
+    function setupCanvas(canvas) {
+      const dpr = window.devicePixelRatio || 1;
+      const size = 260;
+      canvas.width = size * dpr;
+      canvas.height = size * dpr;
+      canvas.style.width = size + 'px';
+      canvas.style.height = size + 'px';
+      const ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
+      return ctx;
+    }
+
+    let ctx = null;
+
+    window.openRoulette = function() {
+      document.getElementById('rouletteOverlay').classList.add('show');
+      const canvas = document.getElementById('rouletteCanvas');
+      if (!ctx) ctx = setupCanvas(canvas);
+      drawWheel(currentAngle);
+    };
+
+    window.closeRoulette = function() {
+      document.getElementById('rouletteOverlay').classList.remove('show');
+    };
+
+    window.setRouletteMode = function(m) {
+      mode = m;
+      currentAngle = 0;
+      document.getElementById('rouletteResult').textContent = '';
+      ['modeAll','modeMale','modeFemale'].forEach(id => {
+        document.getElementById(id).classList.remove('active');
+      });
+      document.getElementById(m === 'all' ? 'modeAll' : m === 'male' ? 'modeMale' : 'modeFemale').classList.add('active');
+      drawWheel(0);
+    };
+
+    function drawWheel(angle) {
+      if (!ctx) return;
+      const items = getItems();
+      const palette = getPalette();
+      const cx = 130, cy = 130, r = 124;
+      const slice = (2 * Math.PI) / items.length;
+
+      ctx.clearRect(0, 0, 260, 260);
+
+      // 外枠
+      ctx.beginPath();
+      ctx.arc(cx, cy, r + 2, 0, 2 * Math.PI);
+      ctx.fillStyle = 'rgba(0,0,0,0.12)';
+      ctx.fill();
+
+      items.forEach((item, i) => {
+        const start = angle + i * slice;
+        const end = start + slice;
+        const color = palette[i % palette.length];
+
+        // セクター
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.arc(cx, cy, r, start, end);
+        ctx.closePath();
+        ctx.fillStyle = color;
+        ctx.fill();
+
+        // 区切り線
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.arc(cx, cy, r, start, end);
+        ctx.closePath();
+        ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // テキスト
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(start + slice / 2);
+
+        const fontSize = items.length <= 6 ? 16 : items.length <= 10 ? 14 : 13;
+        ctx.font = `900 ${fontSize}px 'Zen Maru Gothic', sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        // 白縁取り
+        ctx.strokeStyle = 'rgba(0,0,0,0.3)';
+        ctx.lineWidth = 3;
+        ctx.lineJoin = 'round';
+        ctx.strokeText(item, r * 0.62, 0);
+
+        ctx.fillStyle = 'white';
+        ctx.shadowColor = 'rgba(0,0,0,0.4)';
+        ctx.shadowBlur = 4;
+        ctx.fillText(item, r * 0.62, 0);
+        ctx.restore();
+      });
+
+      // 中心円
+      ctx.beginPath();
+      ctx.arc(cx, cy, 18, 0, 2 * Math.PI);
+      ctx.fillStyle = 'white';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(0,0,0,0.1)';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    window.spinRoulette = function() {
+      if (spinning) return;
+      spinning = true;
+      document.getElementById('rouletteSpinBtn').disabled = true;
+      document.getElementById('rouletteResult').textContent = '';
+
+      const items = getItems();
+      const slice = (2 * Math.PI) / items.length;
+      const extraSpins = (5 + Math.floor(Math.random() * 5)) * 2 * Math.PI;
+      const targetOffset = Math.random() * 2 * Math.PI;
+      const totalRotation = extraSpins + targetOffset;
+      const duration = 3500 + Math.random() * 1000;
+      const startAngle = currentAngle;
+      const startTime = performance.now();
+
+      function easeOut(t) { return 1 - Math.pow(1 - t, 4); }
+
+      function animate(now) {
+        const elapsed = now - startTime;
+        const t = Math.min(elapsed / duration, 1);
+        currentAngle = startAngle + totalRotation * easeOut(t);
+        drawWheel(currentAngle);
+
+        if (t < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          spinning = false;
+          document.getElementById('rouletteSpinBtn').disabled = false;
+          const normalized = (((-currentAngle) % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+          const idx = Math.floor(normalized / slice) % items.length;
+          document.getElementById('rouletteResult').textContent = '🎯 ' + items[idx] + '！';
+        }
+      }
+
+      requestAnimationFrame(animate);
+    };
+
+    // 開いた時に初期化
+    setTimeout(() => {
+      const canvas = document.getElementById('rouletteCanvas');
+      if (canvas) { ctx = setupCanvas(canvas); drawWheel(0); }
+    }, 200);
+  })();
+</script>
+
 </body>
 </html>
