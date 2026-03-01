@@ -445,6 +445,303 @@
   }
   .day-banner.show { display: inline-block; }
 
+
+  /* ── ADMIN SECTION ── */
+  .admin-section {
+    margin-top: 32px;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .admin-lock {
+    text-align: center;
+    padding: 14px 20px;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 20px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 3px 16px rgba(0,0,0,0.07);
+  }
+
+  .admin-lock-icon { font-size: 2rem; margin-bottom: 10px; }
+
+  .admin-lock-title {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 900;
+    font-size: 1rem;
+    color: var(--dark);
+    margin-bottom: 14px;
+  }
+
+  .admin-pw-row {
+    display: flex;
+    gap: 8px;
+    max-width: 260px;
+    margin: 0 auto;
+  }
+
+  .admin-pw-input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 2px solid rgba(0,0,0,0.1);
+    border-radius: 10px;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0.2em;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .admin-pw-input:focus { border-color: var(--red); }
+
+  .admin-pw-btn {
+    background: var(--dark);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .admin-pw-error {
+    color: var(--red);
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-top: 8px;
+    display: none;
+  }
+  .admin-pw-error.show { display: block; }
+
+  /* 管理パネル */
+  .admin-panel {
+    display: none;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 3px 16px rgba(0,0,0,0.07);
+    overflow: hidden;
+    width: 100%;
+    max-width: 560px;
+  }
+  .admin-panel.show { display: block; }
+
+  .admin-panel-header {
+    background: var(--dark);
+    color: white;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .admin-panel-title {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 900;
+    font-size: 0.95rem;
+  }
+
+  .admin-panel-logout {
+    background: rgba(255,255,255,0.12);
+    border: none;
+    color: white;
+    border-radius: 7px;
+    padding: 5px 10px;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 700;
+    font-size: 0.7rem;
+    cursor: pointer;
+  }
+
+  .admin-summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: rgba(0,0,0,0.06);
+  }
+
+  .admin-summary-card {
+    background: white;
+    padding: 14px 10px;
+    text-align: center;
+  }
+
+  .admin-summary-num {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 900;
+    font-size: 1.6rem;
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+
+  .admin-summary-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--brown);
+    opacity: 0.55;
+    letter-spacing: 0.08em;
+  }
+
+  .admin-summary-card.s-paid .admin-summary-num { color: #34A853; }
+  .admin-summary-card.s-unpaid .admin-summary-num { color: var(--red); }
+  .admin-summary-card.s-amount .admin-summary-num { font-size: 1.1rem; color: var(--dark); }
+
+  .admin-filter {
+    display: flex;
+    gap: 6px;
+    padding: 12px 14px 0;
+  }
+
+  .admin-filter-btn {
+    padding: 4px 12px;
+    border-radius: 100px;
+    border: 2px solid rgba(0,0,0,0.1);
+    background: var(--cream);
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--brown);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .admin-filter-btn.active { background: var(--dark); border-color: var(--dark); color: white; }
+
+  .admin-member-list { padding: 10px 14px 14px; display: flex; flex-direction: column; gap: 7px; }
+
+  .admin-member-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 12px;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    background: var(--cream);
+    transition: all 0.15s;
+  }
+
+  .admin-member-row.paid { background: rgba(52,168,83,0.06); border-color: rgba(52,168,83,0.2); }
+  .admin-member-row.unpaid { background: rgba(232,50,42,0.04); border-color: rgba(232,50,42,0.15); }
+
+  .admin-check {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 2.5px solid rgba(0,0,0,0.15);
+    background: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.85rem;
+    transition: all 0.15s;
+    color: white;
+  }
+  .admin-member-row.paid .admin-check { background: #34A853; border-color: #34A853; }
+
+  .admin-member-name {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    flex: 1;
+  }
+
+  .admin-unpaid-badge {
+    font-size: 0.6rem;
+    background: rgba(232,50,42,0.1);
+    color: var(--red);
+    padding: 2px 7px;
+    border-radius: 100px;
+    font-weight: 700;
+  }
+
+  .admin-memo-btn {
+    font-size: 0.7rem;
+    color: var(--brown);
+    opacity: 0.5;
+    cursor: pointer;
+    max-width: 80px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: right;
+  }
+  .admin-memo-btn.has-memo { opacity: 0.8; color: var(--brown); }
+
+  /* メモモーダル */
+  .admin-memo-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 996;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .admin-memo-overlay.show { display: flex; }
+
+  .admin-memo-box {
+    background: white;
+    border-radius: 20px;
+    padding: 24px;
+    width: 100%;
+    max-width: 300px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+    animation: popIn 0.25s ease both;
+  }
+
+  .admin-memo-title {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 900;
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+
+  .admin-memo-textarea {
+    width: 100%;
+    border: 2px solid rgba(0,0,0,0.1);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.88rem;
+    resize: none;
+    height: 80px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .admin-memo-textarea:focus { border-color: var(--red); }
+
+  .admin-memo-actions { display: flex; gap: 8px; margin-top: 10px; }
+
+  .admin-memo-save {
+    flex: 1;
+    background: var(--dark);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 9px;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+
+  .admin-memo-cancel {
+    background: rgba(0,0,0,0.06);
+    border: none;
+    border-radius: 10px;
+    padding: 9px 14px;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
   /* ── SORT BUTTONS ── */
   .sort-bar {
     display: flex;
@@ -1106,6 +1403,7 @@
       </div>
     </div>
 
+
     <div class="line-section">
       <p class="line-note">振込完了したらLINEで報告してね！</p>
       <a class="line-btn" href="https://line.me/ti/p/LNv9vvYMoK" target="_blank">
@@ -1115,6 +1413,50 @@
     </div>
   </div>
 
+
+    <!-- ADMIN -->
+    <div class="admin-section">
+      <div class="admin-lock" id="adminLock">
+        <div style="display:flex;align-items:center;justify-content:center;gap:10px;">
+          <span style="font-size:1rem;">🔐</span>
+          <span class="admin-lock-title" style="margin:0;font-size:0.85rem;">幹事専用</span>
+          <div class="admin-pw-row" style="margin:0;">
+            <input class="admin-pw-input" type="password" id="adminPwInput"
+              placeholder="••••" maxlength="20" style="width:80px;padding:6px 10px;font-size:0.85rem;"
+              onkeydown="if(event.key==='Enter')adminLogin()">
+            <button class="admin-pw-btn" onclick="adminLogin()" style="padding:6px 12px;font-size:0.8rem;">入る</button>
+          </div>
+        </div>
+        <div class="admin-pw-error" id="adminPwError">パスワードが違います</div>
+      </div>
+
+      <div class="admin-panel" id="adminPanel">
+        <div class="admin-panel-header">
+          <span class="admin-panel-title">💰 振込管理</span>
+          <button class="admin-panel-logout" onclick="adminLogout()">ログアウト</button>
+        </div>
+        <div class="admin-summary">
+          <div class="admin-summary-card s-paid">
+            <div class="admin-summary-num" id="aSummaryPaid">0</div>
+            <div class="admin-summary-label">振込済み</div>
+          </div>
+          <div class="admin-summary-card s-unpaid">
+            <div class="admin-summary-num" id="aSummaryUnpaid">0</div>
+            <div class="admin-summary-label">未振込</div>
+          </div>
+          <div class="admin-summary-card s-amount">
+            <div class="admin-summary-num" id="aSummaryAmount">¥0</div>
+            <div class="admin-summary-label">集計金額</div>
+          </div>
+        </div>
+        <div class="admin-filter">
+          <button class="admin-filter-btn active" onclick="aSetFilter('all',this)">すべて</button>
+          <button class="admin-filter-btn" onclick="aSetFilter('unpaid',this)">未振込</button>
+          <button class="admin-filter-btn" onclick="aSetFilter('paid',this)">振込済み</button>
+        </div>
+        <div class="admin-member-list" id="adminMemberList"></div>
+      </div>
+    </div>
 </div><!-- /content -->
 
 
@@ -1125,6 +1467,16 @@
 
 </div><!-- /wrapper -->
 
+<div class="admin-memo-overlay" id="adminMemoOverlay" onclick="aCloseMemo()">
+  <div class="admin-memo-box" onclick="event.stopPropagation()">
+    <div class="admin-memo-title" id="adminMemoTitle"></div>
+    <textarea class="admin-memo-textarea" id="adminMemoText" placeholder="メモを入力..."></textarea>
+    <div class="admin-memo-actions">
+      <button class="admin-memo-save" onclick="aSaveMemo()">保存</button>
+      <button class="admin-memo-cancel" onclick="aCloseMemo()">キャンセル</button>
+    </div>
+  </div>
+</div>
 <div class="deliberation-overlay" id="deliberationOverlay">
   <div class="deliberation-box">
     <div class="deliberation-spinner"></div>
