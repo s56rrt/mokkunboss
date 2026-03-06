@@ -932,6 +932,38 @@
     border-bottom: none;
   }
   .objection-hint.show { display: block; }
+
+
+  /* ── NEWS ── */
+  .news-card {
+    width: 100%;
+    max-width: 260px;
+    margin: 20px auto 0;
+  }
+  .news-row {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 700;
+    color: var(--dark);
+    border-bottom: 1px solid rgba(107,61,20,0.15);
+    display: flex;
+    align-items: center;
+    height: 40px;
+  }
+  .news-row:first-child {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--red);
+    justify-content: center;
+    border-bottom: none;
+    height: 34px;
+  }
+  .news-row:nth-child(2) {
+    border-top: 1px solid rgba(107,61,20,0.15);
+  }
+  .news-row:not(:first-child) {
+    font-size: 0.82rem;
+    justify-content: center;
+  }
   /* ── SORT BUTTONS ── */
   .sort-bar {
     display: flex;
@@ -1236,6 +1268,12 @@
   <div class="countdown">
     <div class="countdown-label">UNTIL THE PARTY</div>
     <div class="countdown-timer" id="countdownTimer"></div>
+  </div>
+  <!-- NEWS -->
+  <div class="news-card">
+    <div class="news-row">NEWS</div>
+    <div class="news-row">0次会開催の説あり（詳細未定）</div>
+    <div class="news-row">親知らず抜糸女（きこ）欠席</div>
   </div>
 </section>
 
