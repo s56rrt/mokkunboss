@@ -1229,8 +1229,10 @@
       badge.textContent = current ? current.text : '👋 ばちこり！';
     }
 
-    updateBadge();
-    setInterval(updateBadge, 60000);
+    document.addEventListener('DOMContentLoaded', function() {
+      updateBadge();
+      setInterval(updateBadge, 60000);
+    });
 
     // テスト用にグローバルに公開
     window._testBadge = function(text) {
